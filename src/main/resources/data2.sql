@@ -34,7 +34,7 @@ REFERENCES role(id)
 
 insert into user(id, username, name, password) values 
 (10001, 'managers','mr manager','$2a$12$hpN4cl1r/9AuJLk74ctzh.f7shXwqPqJCQAqsdYfbaXjuNENAF.Xq');
-insert into user(id, name, username, password) values  
+insert into user(id, username, name, password) values  
 (10002, 'useruser','mr user','$2a$12$qQCBLhv4YqjgCnSOu3fB2uJDrMvAG6sUXoxDGqEAgs/nsNHP6MByu');
 insert into role values(1,'ROLE_MANAGER');
 insert into role values(2,'ROLE_USER');
@@ -45,3 +45,6 @@ insert into user_role values(10002,2);
 select * from user;
 select * from role;
 select * from user_role;
+
+-- 
+
