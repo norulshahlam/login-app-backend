@@ -36,22 +36,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable();
-		http.formLogin()
-		.loginPage("/login").permitAll()
-		.loginProcessingUrl("/login")
-		.passwordParameter("password")
-		.usernameParameter("username")
-		.defaultSuccessUrl("/welcome")
-		.failureUrl("/login").permitAll();
+		http.csrf().disable();
+		http.httpBasic();
+//		.loginPage("/login")
+//		.loginProcessingUrl("/login")
+//		.defaultSuccessUrl("/userdetails")
+//		.failureUrl("/login")
+//		.permitAll();
 	
-		http.csrf().disable()
+		http
 		.authorizeRequests()
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		.mvcMatchers("/login").permitAll()
 		.mvcMatchers("/welcome").hasAnyRole("MANAGER", "USER")
 		.mvcMatchers("/restricted").hasRole("MANAGER")
 		.and().logout().logoutSuccessUrl("/login");
+		
+		http
+        .csrf().disable()   
+        .authorizeRequests()
+        .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .httpBasic();
+		
+		
 	}
 
 

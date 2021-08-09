@@ -1,25 +1,36 @@
 package shah.loginappbackend.controller;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import shah.loginappbackend.model.User;
 import shah.loginappbackend.repository.UserRepo;
@@ -28,10 +39,11 @@ import shah.loginappbackend.security.MapValidationErrorService;
 import shah.loginappbackend.security.UserDetailsServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/**")
+@CrossOrigin(origins ="http://localhost:3000")
 @RequestMapping("/")
 public class UserController {
-
+	@Autowired
+	UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -39,71 +51,59 @@ public class UserController {
 	private MapValidationErrorService mapValidationErrorService;
 
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
-
-	@Autowired
 	UserRepo userRepo;
 
-	@GetMapping("")
-	public String index() {
-		return "index page";
+//	@GetMapping("login")
+//	public ResponseEntity<?> login() {
+//		System.out.println("get login");
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		String username;
+//		if (principal instanceof UserDetails) {
+//			username = ((UserDetails) principal).getUsername();
+//		} else {
+//			username = principal.toString();
+//		}
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Location", "http://localhost:3000/login");
+//		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
+//
+//	}
 
-	}
-
-	@GetMapping("login")
-	public ResponseEntity<?> login() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "http://localhost:3000/login");
-		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
-
-	}
-
-	@GetMapping("welcome")
-	public ResponseEntity<?> welcome(Principal principal, ModelMap model) {
-		System.out.println("welcome controler");
-		StringBuilder role = new StringBuilder();
-		List<String> r = new ArrayList<>();
-
-		// GET ROLE
-		Authentication authority = SecurityContextHolder.getContext().getAuthentication();
-		String username = authority.getName();
-		Collection<? extends GrantedAuthority> roles = authority.getAuthorities();
-		roles.forEach(i -> role.append(i.getAuthority().substring(5)));
-//		roles.forEach(i-> r.add(i.getAuthority()));
-		System.out.println(authority.getPrincipal());
-
-		// GET NAME
-		String name = userRepo.findByUsername(username).getName();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "http://localhost:3000/welcome");
-		headers.add("username", username);
-		headers.add("name", name);
-		headers.add("role", role.toString());
-//		headers.addAll("role", <?> r);
-		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
-	}
-
-	@GetMapping("restricted")
-	public String restricted() {
-		return "restricted page";
-	}
-
-	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
+	@RequestMapping(value = "/userdetails", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> currentUserName() {
 		
-		System.out.println(333333);
-		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-		if (errorMap != null)
-			return errorMap;
-
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "http://localhost:3000/welcome");
-		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("userDetails controller---"+username);
+		String name = userRepo.findByUsername(username).getName();
+		Response response = new Response();
+		response.setName(name);
+		response.setPrincipal(principal);
+		System.out.println(principal);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
+//	@GetMapping("welcome")
+//	public ResponseEntity<?> welcome(Principal principal, ModelMap model) {
+//		System.out.println("welcome controler");
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Location", "http://localhost:3000/welcome");
+//		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
+//	}
+	
+	@PostMapping("login")
+	public ResponseEntity<?> loginaction( @RequestParam Map<String, String> body ) {
+String username = body.get("username");
+	    final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+	    
+	    
+	    
+	    return new ResponseEntity<Object>(userDetails, HttpStatus.OK);
+	}
 }
