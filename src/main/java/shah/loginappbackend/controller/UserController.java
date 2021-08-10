@@ -44,30 +44,9 @@ import shah.loginappbackend.security.UserDetailsServiceImpl;
 public class UserController {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private MapValidationErrorService mapValidationErrorService;
-
+	
 	@Autowired
 	UserRepo userRepo;
-
-//	@GetMapping("login")
-//	public ResponseEntity<?> login() {
-//		System.out.println("get login");
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		String username;
-//		if (principal instanceof UserDetails) {
-//			username = ((UserDetails) principal).getUsername();
-//		} else {
-//			username = principal.toString();
-//		}
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Location", "http://localhost:3000/login");
-//		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
-//
-//	}
 
 	@RequestMapping(value = "/userdetails", method = RequestMethod.GET)
 	@ResponseBody
@@ -89,21 +68,34 @@ public class UserController {
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
-//	@GetMapping("welcome")
-//	public ResponseEntity<?> welcome(Principal principal, ModelMap model) {
-//		System.out.println("welcome controler");
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Location", "http://localhost:3000/welcome");
-//		return new ResponseEntity<Object>(headers, HttpStatus.FOUND);
-//	}
-	
+	@GetMapping("login")	// 
+	public ResponseEntity<?> login() {
+		System.out.println("get login");
+		
+		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+
+	}
 	@PostMapping("login")
+	@ResponseBody
 	public ResponseEntity<?> loginaction( @RequestParam Map<String, String> body ) {
-String username = body.get("username");
-	    final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-	    
-	    
-	    
+String username1 = body.get("username");
+	    final UserDetails userDetails = userDetailsService.loadUserByUsername(username1);
+	    System.out.println(1);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("userDetails controller---"+principal);
+//		String name = userRepo.findByUsername(username).getName();
+		Response response = new Response();
+//		response.setName(name);
+		response.setPrincipal(principal);
+		System.out.println("principal "+principal);
+		
+	    System.out.println(1);
 	    return new ResponseEntity<Object>(userDetails, HttpStatus.OK);
 	}
 }

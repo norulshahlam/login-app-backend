@@ -28,3 +28,8 @@ components
 	welcome page
 	restirctied page
 	
+https://stackoverflow.com/questions/32019353/adding-a-custom-login-controller-with-spring-security
+https://stackoverflow.com/questions/31540476/does-spring-security-require-a-custom-login-controller-when-providing-a-custom-l
+https://stackoverflow.com/questions/40033522/how-spring-securitys-custom-login-works
+https://www.baeldung.com/spring-security-login
+https://docs.spring.io/spring-security/site/docs/3.0.x/reference/core-web-filters.html

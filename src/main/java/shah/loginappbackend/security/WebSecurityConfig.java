@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,34 +32,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+		DaoAuthenticationConfigurer<AuthenticationManagerBuilder, UserDetailsServiceImpl> userDetailsService2 = auth.userDetailsService(userDetailsService);
+		System.out.println("configure");
+		System.out.println(userDetailsService2);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.httpBasic();
-//		.loginPage("/login")
-//		.loginProcessingUrl("/login")
-//		.defaultSuccessUrl("/userdetails")
-//		.failureUrl("/login")
-//		.permitAll();
+		http.formLogin()
+		.loginPage("/login")
+		.loginProcessingUrl("/login")
+		.defaultSuccessUrl("/userdetails")
+		.failureUrl("/login")
+		.permitAll();
 	
 		http
 		.authorizeRequests()
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		.mvcMatchers("/login").permitAll()
 		.mvcMatchers("/welcome").hasAnyRole("MANAGER", "USER")
-		.mvcMatchers("/restricted").hasRole("MANAGER")
-		.and().logout().logoutSuccessUrl("/login");
+		.mvcMatchers("/restricted").hasRole("MANAGER");
 		
 		http
         .csrf().disable()   
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .httpBasic();
+                .anyRequest().authenticated();
+//                .and()
+//            .httpBasic();
 		
 		
 	}
