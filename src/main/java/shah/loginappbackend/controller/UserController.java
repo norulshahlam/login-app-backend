@@ -71,10 +71,10 @@ public class UserController {
 	@GetMapping("login")	// 
 	public ResponseEntity<?> login() {
 		System.out.println("get login");
-		
-		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
+	
+	
 	@PostMapping("login")
 	@ResponseBody
 	public ResponseEntity<?> loginaction( @RequestParam Map<String, String> body ) {

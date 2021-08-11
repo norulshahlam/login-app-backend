@@ -42,9 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.formLogin()
 		.loginPage("/login")
-		.loginProcessingUrl("/login")
+//		.loginProcessingUrl("/login")
 		.defaultSuccessUrl("/userdetails")
-		.failureUrl("/login")
+//		.failureUrl("/login")
 		.permitAll();
 	
 		http
@@ -52,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		.mvcMatchers("/login").permitAll()
 		.mvcMatchers("/welcome").hasAnyRole("MANAGER", "USER")
-		.mvcMatchers("/restricted").hasRole("MANAGER");
+		.mvcMatchers("/restricted").hasRole("MANAGER")
+		.and().logout().logoutSuccessUrl("/login");
 		
 		http
         .csrf().disable()   

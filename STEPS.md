@@ -33,3 +33,7 @@ https://stackoverflow.com/questions/31540476/does-spring-security-require-a-cust
 https://stackoverflow.com/questions/40033522/how-spring-securitys-custom-login-works
 https://www.baeldung.com/spring-security-login
 https://docs.spring.io/spring-security/site/docs/3.0.x/reference/core-web-filters.html
+
+
+run this if u have CORS issue
+chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
