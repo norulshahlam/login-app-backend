@@ -33,8 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		DaoAuthenticationConfigurer<AuthenticationManagerBuilder, UserDetailsServiceImpl> userDetailsService2 = auth.userDetailsService(userDetailsService);
-		System.out.println("configure");
-		System.out.println(userDetailsService2);
 	}
 
 	@Override
@@ -42,9 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.formLogin()
 		.loginPage("/login")
-//		.loginProcessingUrl("/login")
 		.defaultSuccessUrl("/userdetails")
-//		.failureUrl("/login")
 		.permitAll();
 	
 		http
@@ -60,12 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .anyRequest().authenticated();
-//                .and()
-//            .httpBasic();
-		
-		
 	}
-
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -76,7 +67,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			}
 		};
 	}
-
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -91,16 +81,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		return source;
 	}
-	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-
 }
