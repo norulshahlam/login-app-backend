@@ -22,13 +22,13 @@ To run on your localhost:
 
 - Ensure you have install Docker on your machine
 
-- Run the following scripts:
+Run the following scripts:
 
-  docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name localhost --publish 3306:3306 mysql:8.0.26
+    docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name localhost --publish 3306:3306 mysql:8.0.26
 
-  docker run -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
+    docker run -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
 
-  docker run -it -p 3000:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
+    docker run -it -p 3000:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
 
 Once all 3 containers are up, run the following url on your browser:
 
