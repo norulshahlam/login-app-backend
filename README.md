@@ -2,7 +2,7 @@ Welcome!
 
 Requirement
 
-- [Click here to view PDF file](LoginApplication) for more information.
+- [Click here ](LoginApplication) to view requirement.
 
 Database
 
