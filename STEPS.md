@@ -63,7 +63,6 @@ test
 	select * from login_app.user;
 
 
-	
 *** DOKCERISE SPRING APP ***
 
 {HOSTPORT:CONTAINERPORT}
@@ -107,6 +106,10 @@ run
 	
 	
 ***** TEST FULL STACK APP *********
+
+if u cant login due to CORS run this command:
+
+	chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
 
 manager role
 
