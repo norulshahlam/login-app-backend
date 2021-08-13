@@ -1,12 +1,12 @@
 Welcome!
 
-Requirement
+Requirements
 
-- [Click here ](LoginApplication) to view requirement.
+- [Click here ](src/main/others/LoginApplication.pdf) to view requirement.
 
 Database
 
-[![Image](src/main/resources/ER-diagram.JPG "Deploying Spring Boot Apps to AWS using Elastic Beanstalk")](src/main/resources/ER-diagram.JPG)
+[![Image](src/main/others/ER-diagram.JPG "Deploying Spring Boot Apps to AWS using Elastic Beanstalk")](src/main/resources/ER-diagram.JPG)
 
 Technologies
 

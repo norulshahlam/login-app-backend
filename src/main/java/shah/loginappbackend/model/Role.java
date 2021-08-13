@@ -1,7 +1,6 @@
 package shah.loginappbackend.model;
 
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -38,5 +37,5 @@ public class Role implements GrantedAuthority {
 		// TODO Auto-generated method stub
 		return name;
 	}
-	
+
 }

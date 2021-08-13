@@ -1,4 +1,5 @@
 package shah.loginappbackend.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,19 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import shah.loginappbackend.model.Response;
 import shah.loginappbackend.repository.UserRepo;
 import shah.loginappbackend.security.UserDetailsServiceImpl;
 
 @RestController
-@CrossOrigin(origins ="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/")
 public class UserController {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
-	
+
 	@Autowired
 	UserRepo userRepo;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "test";
@@ -31,7 +33,7 @@ public class UserController {
 	@RequestMapping(value = "/userdetails", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> currentUserName() {
-		
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if (principal instanceof UserDetails) {
@@ -39,38 +41,17 @@ public class UserController {
 		} else {
 			username = principal.toString();
 		}
-		System.out.println("userDetails controller---"+username);
+		System.out.println("userDetails controller---" + username);
 		String name = userRepo.findByUsername(username).getName();
 		Response response = new Response();
 		response.setName(name);
 		response.setPrincipal(principal);
-		System.out.println(principal);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("login")	// 
+	@GetMapping("login")
 	public ResponseEntity<?> login() {
 		System.out.println("get login");
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
-	
-//	
-//	@PostMapping("login")
-//	@ResponseBody
-//	public ResponseEntity<?> loginaction( @RequestParam Map<String, String> body ) {
-//String username1 = body.get("username");
-//	    final UserDetails userDetails = userDetailsService.loadUserByUsername(username1);
-//	    System.out.println(1);
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		String username;
-//		if (principal instanceof UserDetails) {
-//			username = ((UserDetails) principal).getUsername();
-//		} else {
-//			username = principal.toString();
-//		}
-//		System.out.println("userDetails controller---"+principal);
-//		Response response = new Response();
-//		response.setPrincipal(principal);
-//	    return new ResponseEntity<Object>(userDetails, HttpStatus.OK);
-//	}
 }

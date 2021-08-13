@@ -30,33 +30,36 @@ components
 	not authorized page
 	
 	
+	******************************************
+
 
 *** DOKCERISE MYSQL ***
+{HOSTPORT:CONTAINERPORT}
 
-
-run!
+`run!`
 	
 	 docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name localhost --publish 3306:3306 mysql:8.0.26
 	 
-for debug
+`for debug`
 	
 	docker container ps -a
 	docker container stop 
 	docker container prune
+	docker volume prune
 	
-stop all running proceses
+`stop all running proceses`
 
 	docker rm $(docker ps -a -q) -f
 
-run mysql in cli using docker
+`run mysql in cli using docker`
 
 	docker exec -it localhost bash
 
-connect to mysql
+`connect to mysql`
 
 	mysql -u admin -proot
 	
-test
+`test`
 
 	use login_app;
 	show tables;
@@ -65,14 +68,14 @@ test
 
 *** DOKCERISE SPRING APP ***
 
-{HOSTPORT:CONTAINERPORT}
+
 
 add maven plugin for docker
 add dockerfile with config
 make sure jdk from spring & dockerfile is same 
 change jdbc url: https://stackoverflow.com/questions/51527683/java-net-unknownhostexception-dockerized-mysql-from-spring-boot-application
 
-create docker
+`create docker`
 
 	docker build . -t login-app-backend
 	
@@ -80,12 +83,12 @@ or
 
 	use maven pakvage
 
-push to docker hub
+`push to docker hub`
 
 	docker push norulshahlam/login-app-backend:0.0.1-SNAPSHOT	
 
 
-run!
+`run!`
 
 	docker run -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
 
@@ -96,13 +99,14 @@ create Dockerfile and configure
 add in main folder
 docker ignore
 
-build:
+`build`
 
 	docker build -t norulshahlam/login-app-frontend .
 	
-run 
+`run` 
 
 	docker run -it -p 3000:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
+	docker run -it -d -p 80:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
 	
 	
 ***** TEST FULL STACK APP *********
@@ -121,9 +125,6 @@ user role
 	username: managers
 	password: managers
 	
-	
-
-
 
 
 
