@@ -90,7 +90,7 @@ or
 
 `run!`
 
-	docker run -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
+	docker run -d -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
 
 
 *** DOKCERISE REACT APP ***
@@ -130,6 +130,10 @@ user role
 
 
 
+******** AWS EC2 *************
+
+initialize docker
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 
 
 
