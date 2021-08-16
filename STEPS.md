@@ -81,11 +81,12 @@ change jdbc url: https://stackoverflow.com/questions/51527683/java-net-unknownho
 	
 or
 
-	use maven pakvage
+	mvn clean
+	use maven package
 
 `push to docker hub`
 
-	docker push norulshahlam/login-app-backend:0.0.1-SNAPSHOT	
+	docker push norulshahlam/login-app-backend:0.0.1-LATEST	
 
 
 `run!`
