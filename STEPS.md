@@ -46,6 +46,11 @@ components
 	docker container stop 
 	docker container prune
 	docker volume prune
+
+`for aws cli`
+
+	sudo su
+	service docker start
 	
 `stop & remove all running proceses`
 
@@ -90,7 +95,7 @@ or
 
 `push to docker hub`
 
-	docker push norulshahlam/login-app-backend:0.0.1-LATEST	
+	docker push norulshahlam/login-app-backend:LATEST	
 
 
 `run!`
