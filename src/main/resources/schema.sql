@@ -1,9 +1,9 @@
-drop database login_app;
-create database login_app;
+-- drop database login_app;
+-- create database login_app;
 use login_app;
 show tables;
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL,
   username VARCHAR(45) NOT NULL,
@@ -11,14 +11,14 @@ CREATE TABLE user (
   PRIMARY KEY (id)
 );
   
-CREATE TABLE role 
+CREATE TABLE IF NOT EXISTS role 
 (
 id INT NOT NULL AUTO_INCREMENT,
 name VARCHAR(20),
 PRIMARY KEY (id)
 );
 
-CREATE TABLE user_role(
+CREATE TABLE IF NOT EXISTS user_role(
 user_id int,
 role_id int,
 FOREIGN KEY (user_id)

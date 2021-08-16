@@ -38,7 +38,7 @@ components
 
 `run!`
 	
-	 docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name localhost --publish 3306:3306 mysql:8.0.26
+	 docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name mysql --publish 3306:3306 mysql:8.0.26
 	 
 `for debug`
 	
