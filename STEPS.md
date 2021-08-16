@@ -38,7 +38,7 @@ components
 
 `run!`
 	
-	 docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name mysql --publish 3306:3306 mysql:8.0.26
+	 docker run --detach --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=login_app --env MYSQL_PASSWORD=root --env MYSQL_USER=admin --name localhost --publish 3306:3306 mysql:8.0
 	 
 `for debug`
 	
@@ -47,9 +47,13 @@ components
 	docker container prune
 	docker volume prune
 	
-`stop all running proceses`
+`stop & remove all running proceses`
 
 	docker rm $(docker ps -a -q) -f
+
+`remove all images`
+
+	docker rmi -f $(docker images -a -q)
 
 `run mysql in cli using docker`
 
@@ -91,7 +95,7 @@ or
 
 `run!`
 
-	docker run -d -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:0.0.1-SNAPSHOT
+	docker run -d -p 8000:8000 --name login-app-backend --link localhost:mysql norulshahlam/login-app-backend:LATEST
 
 
 *** DOKCERISE REACT APP ***
