@@ -52,6 +52,6 @@ public class UserController {
 	@GetMapping("login")
 	public ResponseEntity<?> login() {
 		System.out.println("get login");
-		return new ResponseEntity<Object>(HttpStatus.OK);
+		return new ResponseEntity<Object>("Please login", HttpStatus.OK);
 	}
 }
