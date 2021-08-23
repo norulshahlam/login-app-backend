@@ -112,8 +112,13 @@ docker ignore
 `build`
 
 	docker build -t norulshahlam/login-app-frontend .
+
+`push to docker hub`
+
+	docker push norulshahlam/login-app-frontend	
 	
 `run` 
+
 
 	docker run -it -p 3000:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
 	docker run -it -d -p 80:3000 --name login-app-frontend norulshahlam/login-app-frontend:latest
