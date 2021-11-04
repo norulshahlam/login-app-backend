@@ -1,6 +1,6 @@
-Welcome!
+# Welcome!
 
-Requirements
+`Requirements`
 
 - [Click here ](src/main/others/LoginApplication.pdf) to view requirement.
 
