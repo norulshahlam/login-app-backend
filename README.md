@@ -62,6 +62,6 @@ Currently there are only these pages:
   - if logged user with no MANAGER role try to access, it will redirect here
 
 
-[Front end repo](https://github.com/norulshahlam/login-app-frontend)
-[Back end repo](https://github.com/norulshahlam/login-app-backend)
+[Click here for Front end repo](https://github.com/norulshahlam/login-app-frontend)  
+[Click here for Back end repo](https://github.com/norulshahlam/login-app-backend)
 
